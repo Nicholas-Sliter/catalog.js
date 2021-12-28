@@ -1,4 +1,5 @@
 import Term from './Term';
+import Instructor from './Instructor';
 
 type CourseElement = string | null;
 const defaultProperties = {
@@ -29,7 +30,7 @@ export default class Course {
   type: CourseElement;
   department: CourseElement;
   requirements: [];
-  instructors: [];
+  instructors: [Instructor];
   location: CourseElement;
   schedule: CourseElement;
   crn: CourseElement;
