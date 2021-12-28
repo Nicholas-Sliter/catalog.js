@@ -5,7 +5,7 @@
  * 
  */
 
-class term {
+export default class Term {
    name: string;
    term: string;
 
