@@ -95,7 +95,7 @@ const Location = function (options) {
       }
     },
     'building': {
-      get: function () {
+      get: function () { //eslint-disable-line getter-return
         if (this.rawId.indexOf('/') > -1) {
           const rawIdSplit = this.rawId.split('/');
           return rawIdSplit[rawIdSplit.length - 2];
@@ -133,8 +133,8 @@ const Term = function (options) {
     'season': {
       get: function () {
         var seasons = {'90': 'fall',
-                       '10': 'winter',
-                       '20': 'sprint'};
+          '10': 'winter',
+          '20': 'sprint'};
         return seasons[this.id.slice(4)] || 'unknown';
       }
     },

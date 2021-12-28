@@ -1,7 +1,6 @@
 /*eslint no-dupe-keys: 0*/
 
-const Promise = require('bluebird'),
-      _       = require('lodash'),
+const _       = require('lodash'),
       request = Promise.promisifyAll(require('request')),
       fs      = Promise.promisifyAll(require('fs')),
       xml2js  = Promise.promisifyAll(require('xml2js')),
@@ -14,24 +13,24 @@ function createScraper(term) {
 
   const scraper = function () {};
 
-  scraper.catalogFromUrl = function () {
+  scraper.catalogFromUrl = async function () {
     return request.getAsync(getScrapeUrl(term))
-    .then(function (response) {
-      return xml2js.parseStringAsync(response.body);
-    })
-    .then(function (xml) {
-      return parse.parseCatalog(xml);
-    });
+      .then(function (response) {
+        return xml2js.parseStringAsync(response.body);
+      })
+      .then(function (xml) {
+        return parse.parseCatalog(xml);
+      });
   };
 
   scraper.catalogFromFile = function (file) {
     return fs.readFileAsync(file, 'utf8')
-    .then(function (file) {
-      return xml2js.parseStringAsync(file);
-    })
-    .then(function (xml) {
-      return parse.parseCatalog(xml);
-    });
+      .then(function (file) {
+        return xml2js.parseStringAsync(file);
+      })
+      .then(function (xml) {
+        return parse.parseCatalog(xml);
+      });
   };
 
   return scraper;
@@ -58,8 +57,8 @@ function getScrapeUrl(term) {
   };
 
   return baseUrl + _(urlParts)
-  .map(function (value, key) {
-    return key + '=' + value;
-  })
-  .join('&');
+    .map(function (value, key) {
+      return key + '=' + value;
+    })
+    .join('&');
 }

@@ -20,14 +20,12 @@
   "author": "Dana Silver",
   "license": "MIT",
   "dependencies": {
-    "bluebird": "3.0.x",
-    "lodash": "3.10.x",
-    "moment": "2.10.x",
-    "request": "2.65.x",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.1",
     "xml2js": "0.4.x"
   },
   "devDependencies": {
-    "eslint": "1.8.x",
-    "mocha": "2.3.x"
+    "eslint": "8.5.x",
+    "mocha": "9.1.x"
   }
 }

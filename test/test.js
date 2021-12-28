@@ -14,11 +14,11 @@ describe('catalog.js', function () {
     this.timeout(10000);
 
     scraper('201590')
-    .catalogFromFile(path.join(__dirname, 'test.xml'))
-    .then(function (scraped) {
-      catalog = scraped;
-      done();
-    });
+      .catalogFromFile(path.join(__dirname, 'test.xml'))
+      .then(function (scraped) {
+        catalog = scraped;
+        done();
+      });
   });
 
   describe('catalog', function () {
