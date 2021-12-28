@@ -19,6 +19,7 @@ const defaultProperties = {
 };
 
 
+
 export default class Course {
   href: CourseElement;
   code: CourseElement;
