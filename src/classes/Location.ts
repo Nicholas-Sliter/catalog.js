@@ -2,6 +2,12 @@
 import CourseInfo from './CourseInfo';
 
 type LocationElement = string | null;
+const defaultProperties = {
+   room: null,
+   building: null,
+   id: null
+};
+
 
 /**
  * A class to store the location data, inherits from CourseInfo
@@ -14,6 +20,8 @@ export default class Location extends CourseInfo {
 
    constructor(options: object) {
       super(options);
+      Object.assign(this, defaultProperties);
+
       this.room = this._parseRoom();
       this.building = this._parseBuilding();
       this.id = this._parseID();
