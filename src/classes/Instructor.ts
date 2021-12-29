@@ -30,7 +30,7 @@ export default class Instructor extends CourseInfo {
       const splits = this.rawID.split("/");
       middleburyID = splits[splits.length - 1];
     } else {
-      throw new Error("Instructor " + this.name + " has no middlebury ID.");
+      throw new Error("Instructor " + this.name + " has no Middlebury ID.");
     }
     return middleburyID;
   }

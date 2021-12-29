@@ -1,5 +1,5 @@
 import Term from './Term'; 
-import Course from './course';
+import Course from './Course';
 
 type CatalogElement = string | null;
 const defaultProperties = {

@@ -27,9 +27,9 @@ export default class Term {
   private _convertNameToTerm(name: string) {
     let term: string;
     const seasons: object = {
-      F: "90",
-      W: "10",
-      S: "20",
+      'F': "90",
+      'W': "10",
+      'S': "20",
     };
 
     const season: string = seasons[name.charAt(0)] ?? "";

@@ -56,9 +56,11 @@ function getScrapeUrl(term) {
     'search': 'Search'
   };
 
-  return baseUrl + _(urlParts)
-    .map(function (value, key) {
-      return key + '=' + value;
-    })
-    .join('&');
+  return (
+    baseUrl +
+    _(urlParts)
+      .map(function (value, key) {
+        return key + "=" + value;
+      })
+      .join("&amp;");
 }

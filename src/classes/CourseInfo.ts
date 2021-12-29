@@ -6,12 +6,21 @@
  */
 
 type CourseInfoElement = string | null;
+const defaultProperties = {
+   rawID: null,
+   href: null,
+   text: null,
+};
+
 
 export default class CourseInfo {
-   
+
   rawID: CourseInfoElement;
   href: CourseInfoElement;
   text: CourseInfoElement;
 
-  constructor(options: object) {}
+  constructor(options: object) {
+      Object.assign(this, defaultProperties);
+      Object.assign(this, options);
+  }
 }

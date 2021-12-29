@@ -6,6 +6,8 @@
 * 
 */
 
+import Meeting from "./Meeting";
+
 
 type ScheduleElement = string | null;
 const defaultProperties = {
@@ -15,12 +17,12 @@ const defaultProperties = {
 
 
 export default class Schedule {
+  public text: ScheduleElement;
+  public meetings: [Meeting] | [];
 
-      text: ScheduleElement;
-      meetings: [];
-
-      constructor(options: object) {
-         Object.assign(this, defaultProperties);
-         Object.assign(this, options);
-      }
-   }
+  constructor(options: object) {
+    this.text = null;
+    this.meetings = [];
+    Object.assign(this, options);
+  }
+}
