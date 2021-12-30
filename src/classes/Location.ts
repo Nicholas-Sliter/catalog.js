@@ -1,4 +1,4 @@
-import CourseInfo from "./CourseInfo";
+import CourseInfo from "./CourseInfo.js";
 
 type LocationElement = string | null;
 const defaultProperties = {
@@ -57,7 +57,7 @@ export default class Location extends CourseInfo {
 
   private _parseID(): string {
     let id: string = "";
-    
+
     if (!this.rawID) {
       throw new Error("rawID is null");
     }

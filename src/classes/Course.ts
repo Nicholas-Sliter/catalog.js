@@ -1,5 +1,5 @@
-import Term from './Term';
-import Instructor from './Instructor';
+import Term from './ConvertTerm.js';
+import Instructor from './Instructor.js';
 
 type CourseElement = string | null;
 const defaultProperties = {

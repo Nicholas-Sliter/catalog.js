@@ -1,4 +1,4 @@
-import CourseInfo from "./CourseInfo";
+import CourseInfo from "./CourseInfo.js";
 
 type InstructorElement = string | null;
 const defaultProperties = {

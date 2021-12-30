@@ -6,7 +6,7 @@
 * 
 */
 
-import Meeting from "./Meeting";
+import Meeting from "./Meeting.js";
 
 
 type ScheduleElement = string | null;

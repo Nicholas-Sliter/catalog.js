@@ -1,5 +1,5 @@
 
-import Location from './Location';
+import Location from './Location.js';
 
 type MeetingElement = string | null;
 const defaultProperties = {

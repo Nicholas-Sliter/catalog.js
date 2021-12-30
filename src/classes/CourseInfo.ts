@@ -21,6 +21,14 @@ export default class CourseInfo {
 
   constructor(options: object) {
       Object.assign(this, defaultProperties);
-      Object.assign(this, options);
+      //Object.assign(this, options);
+      this._parseOptions(options);
   }
+
+  private _parseOptions(options: object) {
+    this.rawID = options["$"].id;
+    this.href = options["$"].href;
+    this.text = options["_"];
+  }
+
 }

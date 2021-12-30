@@ -3,13 +3,18 @@
    "display": "Node 14",
    "compilerOptions": {
       "lib": [
-         "es2020"
+         "ES2020"
       ],
-      "module": "esnext",
-      "target": "esnext",
+      "module": "ES2020",
+      "target": "ESNext",
       "strict": false,
       "esModuleInterop": true,
       "skipLibCheck": true,
-      "forceConsistentCasingInFileNames": true
-   }
+      "forceConsistentCasingInFileNames": true,
+      "moduleResolution": "node",
+      "outDir": "./lib"
+   },
+   "include": [
+      "./src"
+   ]
 }
