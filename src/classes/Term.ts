@@ -11,7 +11,6 @@ export default class Term extends CourseInfo {
 
    season: TermElement;
    year: TermElement;
-   id: TermElement;
 
    constructor(options: object) {
       super({type:Term, ...options});

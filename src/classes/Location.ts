@@ -14,7 +14,6 @@ const defaultProperties = {
 export default class Location extends CourseInfo {
   room: LocationElement;
   building: LocationElement;
-  id: LocationElement;
 
   constructor(options: object) {
     super(options);
