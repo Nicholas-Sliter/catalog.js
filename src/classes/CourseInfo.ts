@@ -10,6 +10,7 @@ const defaultProperties = {
    rawID: null,
    href: null,
    text: null,
+   id: null
 };
 
 
@@ -18,17 +19,34 @@ export default class CourseInfo {
   rawID: CourseInfoElement;
   href: CourseInfoElement;
   text: CourseInfoElement;
+  id: CourseInfoElement;
 
   constructor(options: object) {
       Object.assign(this, defaultProperties);
-      //Object.assign(this, options);
       this._parseOptions(options);
+      this.id = this._parseID();
   }
 
   private _parseOptions(options: object) {
     this.rawID = options["$"].id;
     this.href = options["$"].href;
     this.text = options["_"];
+  }
+
+  private _parseID() {
+    let id: string = "";
+
+    if (!this.rawID) {
+      throw new Error("rawID is null");
+    }
+
+    if (this.rawID.indexOf("/") > -1) {
+      const splits = this.rawID.split("/");
+      id = splits[splits.length - 1];
+    } else {
+      throw new Error("Course " + this.rawID + " has no ID.");
+    }
+    return id;
   }
 
 }
