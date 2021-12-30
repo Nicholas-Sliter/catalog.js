@@ -36,9 +36,18 @@ export default class Catalog {
 
       if (!this.term) {
          const termObj = catalogObj?.rss.channel[0]["catalog:chosen_term"][0];
-         this.term = await new Term(termObj);
+         this.term = new Term(termObj);
       }
 
+      if (this.courses === <any>[]){
+         catalogObj.rss.channel[0].item.forEach(async (courseObj) => {
+            const course = new Course(courseObj);
+            this.courses.push(course);
+         });
+
+
+
+      }
 
 
 
