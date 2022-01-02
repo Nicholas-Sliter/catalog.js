@@ -15,8 +15,8 @@ export default class Location extends CourseInfo {
   room: LocationElement;
   building: LocationElement;
 
-  constructor(options: object) {
-    super(options, false);
+  constructor(options: object, parse:boolean=true) {
+    super(options, parse);
     Object.assign(this, defaultProperties);
 
     this.room = this._parseRoom();

@@ -12,6 +12,7 @@ import Term from "./Term.js";
 import Type from "./Type.js";
 import Level from "./Level.js";
 
+
 type CourseElement = string | null;
 //can only contain primitive types
 const defaultProperties = {

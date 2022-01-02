@@ -1,9 +1,24 @@
 import xml2js from "xml2js";
 import fetch from "node-fetch";
 import Catalog from "./Catalog.js";
+import Param from "./Param.js";
 
 const MIDD_URL_BASE =
   "http://catalog.middlebury.edu/offerings/searchxml/catalog/catalog%2FMCUG?";
+
+const DEFAULT_SEARCH_PARAMS = [
+  new Param("type%5B%5D", "genera%3Aoffering%2FLCT").getObject(),
+  new Param("type%5B%5D", "genera%3Aoffering%2FLAB").getObject(),
+  new Param("type%5B%5D", "genera%3Aoffering%2FDSC").getObject(),
+  new Param("type%5B%5D", "genera%3Aoffering%2FDR1").getObject(),
+  new Param("type%5B%5D", "genera%3Aoffering%2FDR2").getObject(),
+  new Param("type%5B%5D", "genera%3Aoffering%2FPE").getObject(),
+  new Param("type%5B%5D", "genera%3Aoffering%2FPLB").getObject(),
+  new Param("type%5B%5D", "genera%3Aoffering%2FSCR").getObject(),
+  new Param("type%5B%5D", "genera%3Aoffering%2FSEM").getObject(),
+  new Param("location%5B%5D", "resource%2Fplace%2Fcampus%2FM").getObject(),
+  new Param("search", "Search").getObject(),
+];
 
 /**
  * A scraper class to scrape the data from the course page
@@ -41,7 +56,6 @@ export default class Scraper {
 
     /** if term is of format SYY, convert to YYYYSS */
     if (term.match(/([A-Z]){1}([0-9]){2}$/)) {
-      console.log(term);
       const seasons = {
         F: "90",
         W: "10",
@@ -52,7 +66,6 @@ export default class Scraper {
       const fullYear = `${century}${partialYear}`;
       const season = term.charAt(0);
       const seasonCode = seasons[season];
-      console.log(seasonCode);
       return `${fullYear}${seasonCode}`;
     }
 

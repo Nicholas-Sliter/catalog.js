@@ -6,7 +6,6 @@ const defaultProperties = {
    raw: null,
    href: null,
    term: null,
-   courses: [],
 };
 
 
@@ -18,13 +17,16 @@ export default class Catalog {
 
   constructor(options) {
     Object.assign(this, defaultProperties);
+    this.courses = [];
     Object.assign(this, options);
     this._parseCatalog();
   }
 
   private async _parseCatalog() {
     if (!this.raw) {
-      throw new Error("No raw data to parse");
+      const e: Error = new Error("No raw data to parse");
+      console.error(e);
+      return;
     }
 
     const catalogObj = await JSON.parse(this.raw);

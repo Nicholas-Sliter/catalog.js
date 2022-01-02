@@ -1,5 +1,4 @@
 import Location from "./Location.js";
-import { pad } from "../utils.js";
 import dayjs from "dayjs";
 import CustomParseFormat from "dayjs/plugin/customParseFormat.js";
 import utc from "dayjs/plugin/utc.js";
@@ -44,14 +43,9 @@ export default class Meeting {
     const matches = meetingObj.text.match(regex);
     if (matches) {
       const startTime = dayjs(matches[1], timeFormat).tz("America/New_York");
-      this.startTime = `${pad(startTime.hour(), 2)}:${pad(
-        startTime.minute(),
-        2
-      )}${startTime.hour() >= 12 ? "pm" : "am"} ET`;
+      this.startTime = startTime.format('h:mm A')
       const endTime = dayjs(matches[2], timeFormat).tz("America/New_York");
-      this.endTime = `${pad(endTime.hour(), 2)}:${pad(endTime.minute(), 2)}${
-        endTime.hour() >= 12 ? "pm" : "am"
-      } ET`;
+      this.endTime = endTime.format('h:mm A')
       this.days = matches[3].split(", ");
 
       if (matches[4]) {
@@ -59,20 +53,13 @@ export default class Meeting {
           rawID: [matches[5], matches[6]].join("/"),
           href: null,
           text: null,
-        });
+        }, false);
       }
 
-      //Note: months are 0 indexed
       const startDate = dayjs(matches[7], dateFormat);
-      this.startDate = `${startDate.year().toString()}-${pad(
-        startDate.month() + 1,
-        2
-      )}-${pad(startDate.date(), 2)}`;
+      this.startDate = startDate.format('YYYY-MM-DD');
       const endDate = dayjs(matches[8], dateFormat);
-      this.endDate = `${endDate.year().toString()}-${pad(
-        endDate.month() + 1,
-        2
-      )}-${pad(endDate.date(), 2)}`;
+      this.endDate = endDate.format('YYYY-MM-DD');
     }
   }
 }

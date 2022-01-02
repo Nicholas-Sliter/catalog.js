@@ -26,11 +26,10 @@
 
 // //fs.writeFileSync("test.json", data);
 
-import Catalog from "./classes/Catalog.js";
 import Scraper from "./classes/Scraper.js";
 import Param from "./classes/Param.js";
 
-const term = "F21";
+const term = "W22";
 const searchParameters = [
   new Param("type%5B%5D", "genera%3Aoffering%2FLCT").getObject(),
   new Param("type%5B%5D", "genera%3Aoffering%2FLAB").getObject(),
@@ -47,8 +46,5 @@ const searchParameters = [
 const S = new Scraper(term, searchParameters);
 await S.scrape();
 await S.parse();
-//console.log(S.catalog.courses);
 
-
-
-console.log(S.catalog.courses[0].schedule.meetings[0]);
+console.log(S.catalog.courses[0]);
