@@ -2,7 +2,7 @@
   "name": "middlebury-catalog",
   "version": "1.0.0",
   "description": "A JavaScript API for the Middlebury course catalog.",
-  "main": "src/scraper.js",
+  "main": "lib/classes/Scraper.js",
   "type" : "module",
   "scripts": {
     "test": "npm run lint && mocha --harmony",

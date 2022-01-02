@@ -1,3 +1,0 @@
-function createScraper(term: string){
-   
-}
