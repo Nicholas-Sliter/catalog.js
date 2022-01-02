@@ -10,6 +10,9 @@
 $ npm install --save middlebury-catalog
 ```
 
+This updated NPM module is ESM only and is compiled to modern ES6+ JS.
+
+
 ## Examples
 
 Scrape the course catalog for a given term in one of two formats (YYYYSS or SYY) and a set of search parameters. The URL is automatically
