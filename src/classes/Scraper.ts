@@ -41,6 +41,7 @@ export default class Scraper {
 
     /** if term is of format SYY, convert to YYYYSS */
     if (term.match(/([A-Z]){1}([0-9]){2}$/)) {
+      console.log(term);
       const seasons = {
         F: "90",
         W: "10",
@@ -51,6 +52,7 @@ export default class Scraper {
       const fullYear = `${century}${partialYear}`;
       const season = term.charAt(0);
       const seasonCode = seasons[season];
+      console.log(seasonCode);
       return `${fullYear}${seasonCode}`;
     }
 
@@ -92,10 +94,7 @@ export default class Scraper {
       throw new Error("Scraper must scrape before parsing");
     }
 
-    const catalog = new Catalog({});
-    const parser = new Parser(await JSON.parse(this.raw));
-
-
+    const catalog = new Catalog({raw: this.raw, href: this.href});
     this.catalog = catalog;
 
     return this;
@@ -108,18 +107,17 @@ export default class Scraper {
     let url = `${MIDD_URL_BASE}`;
 
     if (this.term) {
-      url += `term%2F=${this.term}`;
+      url += `term=term%2F${this.term}`;
     }
 
     if (!this.searchParameters) {
       return url;
     }
 
-    for (const key in this.searchParameters) {
-      if (this.searchParameters.hasOwnProperty(key)) {
-        url += `&${key}=${this.searchParameters[key]}`;
-      }
-    }
+    this.searchParameters.forEach((param: {name:string, value:string}) => {
+      url += `&${param.name}=${param.value}`;
+    });
+
     return url;
   }
 }

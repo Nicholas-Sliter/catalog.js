@@ -21,7 +21,7 @@ export default class Location extends CourseInfo {
 
     this.room = this._parseRoom();
     this.building = this._parseBuilding();
-    this.id = this._parseID();
+    this.id = this._parseLocationID();
   }
 
   private _parseRoom(): string {
@@ -54,7 +54,7 @@ export default class Location extends CourseInfo {
     return building;
   }
 
-  private _parseID(): string {
+  private _parseLocationID(): string {
     let id: string = "";
 
     if (!this.rawID) {

@@ -18,7 +18,7 @@ export default class Schedule {
   public meetings: Meeting[];
 
   constructor(scheduleObj: any) {
-    this.text = scheduleObj?.text || null;
+    this.text = scheduleObj?.['_'] || null;
     this.meetings = [];
     this._parseSchedule();
   }
