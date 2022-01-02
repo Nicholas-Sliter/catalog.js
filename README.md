@@ -13,7 +13,7 @@ $ npm install --save middlebury-catalog
 ## Examples
 
 Scrape the course catalog for a given term in one of two formats (YYYYSS or SYY) and a set of search parameters. The URL is automatically
-constructed based on the term and parameters.  If given no search paramters, the scraper will use its predefined defaults.
+constructed based on the term and parameters.  If given no search parameters, the scraper will use its predefined defaults.
 
 ```js
 import Scraper from ('middlebury-catalog');
