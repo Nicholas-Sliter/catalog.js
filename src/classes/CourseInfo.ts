@@ -21,30 +21,38 @@ export default class CourseInfo {
   text: CourseInfoElement;
   id: CourseInfoElement;
 
-  constructor(options: object) {
+  constructor(options: object, parse:boolean=true) {
       Object.assign(this, defaultProperties);
-      this._parseOptions(options);
-      this.id = this._parseID();
+      if (parse) {
+        this._parseOptions(options);
+        this.id = this._parseID();
+      }
+      else {
+        Object.assign(this, options);
+      }
   }
 
   private _parseOptions(options: object) {
-    this.rawID = options["$"].id;
-    this.href = options["$"].href;
-    this.text = options["_"];
+    this.rawID = options?.["$"]?.id;
+    this.href = options?.["$"]?.href;
+    this.text = options?.["_"];
   }
 
   private _parseID() {
     let id: string = "";
 
     if (!this.rawID) {
-      throw new Error("rawID is null");
+      //throw new Error("rawID is null");
+      return null;
     }
 
     if (this.rawID.indexOf("/") > -1) {
       const splits = this.rawID.split("/");
       id = splits[splits.length - 1];
-    } else {
-      throw new Error("Course " + this.rawID + " has no ID.");
+    } 
+    else {
+      //throw new Error("Course " + this.rawID + " has no ID.");
+      return null;
     }
     return id;
   }

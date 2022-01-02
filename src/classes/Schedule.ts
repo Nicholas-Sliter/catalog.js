@@ -25,7 +25,8 @@ export default class Schedule {
 
   private _parseSchedule(): void {
     if (!this.text) {
-      throw new Error("Schedule text is null");
+      new Error("Schedule text is null");
+      return null
     }
 
     this.text.split("\n").forEach((meetingString) => {

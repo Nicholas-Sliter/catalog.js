@@ -15,7 +15,7 @@ export default class Instructor extends CourseInfo {
     Object.assign(this, defaultProperties);
 
     this.name = this.text;
-    this.middleburyID = this._parseMiddleburyID();
+    //this.middleburyID = this._parseMiddleburyID(); //duplicate of this.id
   }
 
   /**

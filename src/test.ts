@@ -51,3 +51,4 @@ await S.parse();
 
 
 
+console.log(S.catalog.courses[0].schedule.meetings[0]);

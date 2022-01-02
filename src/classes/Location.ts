@@ -16,7 +16,7 @@ export default class Location extends CourseInfo {
   building: LocationElement;
 
   constructor(options: object) {
-    super(options);
+    super(options, false);
     Object.assign(this, defaultProperties);
 
     this.room = this._parseRoom();
@@ -28,7 +28,8 @@ export default class Location extends CourseInfo {
     let room: string = "";
 
     if (!this.rawID) {
-      throw new Error("rawID is null");
+       new Error("rawID is null");
+       return null;
     }
 
     if (this.rawID.indexOf("/") > -1) {
@@ -44,7 +45,8 @@ export default class Location extends CourseInfo {
     let building: string = "";
 
     if (!this.rawID) {
-      throw new Error("rawID is null");
+      new Error("rawID is null");
+      return null;
     }
 
     if (this.rawID.indexOf("/") > -1) {
@@ -58,7 +60,8 @@ export default class Location extends CourseInfo {
     let id: string = "";
 
     if (!this.rawID) {
-      throw new Error("rawID is null");
+      new Error("rawID is null");
+      return null;
     }
 
     if (this.rawID.indexOf("/") > -1) {

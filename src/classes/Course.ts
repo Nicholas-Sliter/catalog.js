@@ -13,6 +13,7 @@ import Type from "./Type.js";
 import Level from "./Level.js";
 
 type CourseElement = string | null;
+//can only contain primitive types
 const defaultProperties = {
   href: null,
   code: null,
@@ -21,12 +22,9 @@ const defaultProperties = {
   alternate: null,
   type: null,
   department: null,
-  requirements: [],
-  instructors: [],
   location: null,
   schedule: null,
   crn: null,
-
   term: null,
   subject: null,
   level: null,
@@ -52,6 +50,8 @@ export default class Course {
 
   constructor(options: object) {
     Object.assign(this, defaultProperties);
+    this.requirements = []; //to prevent all instances of this class from having the same requirements array
+    this.instructors = [];
     //Object.assign(this, options);
     this._parseCourse(options);
   }
@@ -66,15 +66,23 @@ export default class Course {
     this.description = stripHtml(courseObj?.description[0]); //todo: do this in the class
     this.title = stripHtml(courseObj["catalog:title"][0]);
     //this.alternate = courseObj?.alternate[0];
-    //console.log(courseObj?.["catalog:genustype"]?.[0]);
     this.type = new Type(courseObj?.["catalog:genustype"]?.[0]);
     this.location = new Location(courseObj?.["catalog:location"]?.[0]);
-    console.log("Schedule:", courseObj["catalog:schedule"][0]);
     this.schedule = new Schedule(courseObj?.["catalog:schedule"]?.[0]);
     this.crn = new Crn(courseObj?.["catalog:property"]?.[0]);
 
     const termObj = courseObj?.["catalog:term"]?.[0];
     this.term = new Term(termObj);
+
+  
+    const instructors = courseObj?.["catalog:instructor"];
+    if (instructors && instructors?.length > 0) {
+    instructors.forEach((instructor: any) => {
+      this.instructors.push(new Instructor(instructor));
+    });
+
+    }
+
 
     const topics = courseObj["catalog:topic"];
     topics.forEach((topic: any) => {
