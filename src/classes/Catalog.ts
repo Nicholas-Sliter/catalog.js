@@ -17,7 +17,7 @@ export default class Catalog {
 
   constructor(options) {
     Object.assign(this, defaultProperties);
-    this.courses = [];
+    this.courses = []
     Object.assign(this, options);
     this._parseCatalog();
   }

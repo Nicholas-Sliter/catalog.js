@@ -44,7 +44,9 @@ const searchParameters = [
   new Param("search", "Search").getObject(),
 ];
 const S = new Scraper(term, searchParameters);
+//await S.getCatalogFromFile("./test/test.xml");
+//console.log(S.catalog);
 await S.scrape();
 await S.parse();
 
-console.log(S.catalog.courses[0]);
+console.log(S.catalog.courses[0].requirements);
