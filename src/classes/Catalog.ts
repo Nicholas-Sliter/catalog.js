@@ -15,11 +15,14 @@ export default class Catalog {
   term: Term;
   courses: Course[];
 
-  constructor(options) {
+  constructor(options, clean = true) {
     Object.assign(this, defaultProperties);
     this.courses = []
     Object.assign(this, options);
     this._parseCatalog();
+    if (clean) {
+      this._cleanCatalog();
+    }
   }
 
   private async _parseCatalog() {
@@ -49,4 +52,18 @@ export default class Catalog {
       });
     }
   }
+
+  private _cleanCatalog():void {
+    //remove extraneous courses like lab and discussion sections
+    this.courses = this.courses.filter((course) => {
+      return course.type.text !== "Lab" && course.type.text !== "Discussion";
+
+
+    });
+    
+
+
+  }
+
+
 }

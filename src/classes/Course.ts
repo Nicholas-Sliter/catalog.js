@@ -65,7 +65,8 @@ export default class Course {
     this.href = courseObj?.link[0];
     this.code = courseObj?.title[0];
     this.description = stripHtml(courseObj?.description[0]); //todo: do this in the class
-    this.title = stripHtml(courseObj["catalog:title"][0]);
+    //this.title = stripHtml(courseObj["catalog:title"][0]);
+    this.title = this._parseTitle(courseObj["catalog:title"][0]);
     //this.alternate = courseObj?.alternate[0];
     this.type = new Type(courseObj?.["catalog:genustype"]?.[0]);
     this.location = new Location(courseObj?.["catalog:location"]?.[0]);
@@ -102,4 +103,16 @@ export default class Course {
       }
     });
   }
+
+  private _parseTitle(titleString: string): string {
+    //remove and strip HTML
+    titleString = stripHtml(titleString);
+
+    //remove "Please register ...." string from title
+    //and add alias to the other course
+    const split = titleString.split(" Please Register");
+    return split[0].trim();
+
+  }
+
 }
