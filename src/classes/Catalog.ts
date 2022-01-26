@@ -15,7 +15,7 @@ export default class Catalog {
   term: Term;
   courses: Course[];
 
-  constructor(options, clean = true) {
+  constructor(options, clean = false) {
     Object.assign(this, defaultProperties);
     this.courses = []
     Object.assign(this, options);
@@ -51,6 +51,10 @@ export default class Catalog {
         this.courses.push(course);
       });
     }
+  }
+
+  public clean():void{
+    this._cleanCatalog();
   }
 
   private _cleanCatalog():void {

@@ -11,6 +11,7 @@ import Subject from "./Subject.js";
 import Term from "./Term.js";
 import Type from "./Type.js";
 import Level from "./Level.js";
+import Alias from "./Alias.js";
 
 
 type CourseElement = string | null;
@@ -29,6 +30,7 @@ const defaultProperties = {
   term: null,
   subject: null,
   level: null,
+  alias: null,
 };
 
 export default class Course {
@@ -48,6 +50,7 @@ export default class Course {
   term: Term | null;
   subject: Subject | null;
   level: Level | null;
+  alias: Alias | null;
 
   constructor(options: object) {
     Object.assign(this, defaultProperties);
@@ -109,8 +112,18 @@ export default class Course {
     titleString = stripHtml(titleString);
 
     //remove "Please register ...." string from title
+    // and remove "Please Register" string from title  TODO:
     //and add alias to the other course
-    const split = titleString.split(" Please Register");
+    //regex for "Please Register" and "Please register"
+    const reg = /(Please Register|Please register)/;
+    const split = titleString.split(reg);
+
+    if (split.length > 2){
+      const alias = new Alias(split[2]);
+      this.alias = alias;
+    }
+
+
     return split[0].trim();
 
   }
