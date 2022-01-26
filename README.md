@@ -41,18 +41,16 @@ const catalog = scraper.catalog;
 
 
 
-
-Specify an XML file to scrape from. You must still provide a term to catalog.
+Specify an XML file to scrape from.
 
 ```js
-const catalog = require('middlebury-catalog');
+import Scraper from ('middlebury-catalog');
 
-catalog('201590')
-  .catalogFromFile('test/test.xml')
-  .then(function (catalog) {
-    console.log(catalog.courses[0]);
-  });
+const scraper = new Scraper('F21', searchParameters);
+const catalog = await S.getCatalogFromFile("./test/test.xml");
+
 ```
+
 
 ## Develop
 
