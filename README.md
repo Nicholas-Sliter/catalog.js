@@ -35,8 +35,7 @@ const scraper = new Scraper('F21');
 await scraper.scrape();
 await scraper.parse();
 const catalog = scraper.catalog;
- 
-  });
+
 ```
 
 
