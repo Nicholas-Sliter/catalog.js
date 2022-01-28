@@ -46,7 +46,7 @@ Specify an XML file to scrape from.
 import Scraper from ('middlebury-catalog');
 
 const scraper = new Scraper('F21', searchParameters);
-const catalog = await S.getCatalogFromFile("./test/test.xml");
+const catalog = await scraper.getCatalogFromFile("./test/test.xml");
 
 ```
 
