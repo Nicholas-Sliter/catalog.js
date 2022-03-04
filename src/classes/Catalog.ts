@@ -37,9 +37,7 @@ export default class Catalog {
 
     if (!this.term) {
       const termObj = catalogObj?.rss.channel[0]["catalog:chosen_term"][0];
-      console.log(termObj);
       this.term = new Term(termObj);
-      console.log(this.term);
     }
 
     if (this.courses.length === 0) {
