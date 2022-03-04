@@ -146,7 +146,13 @@ private _parseDescription(descriptionString: string){
   const re2 = /\(.*\)$/;
   const split2 = descriptionString.split(re2);
   descriptionString = split2[0];
-  
+
+  //convert &amp to &
+  descriptionString = descriptionString.replace(/&amp;/g, "&");
+
+  //convert â€™ to \x27 (')
+  descriptionString = descriptionString.replace(/â€™/g, "\x27");
+
   descriptionString = descriptionString.trim();
 
   return descriptionString;
