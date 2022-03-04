@@ -1,20 +1,20 @@
 {
-   "$schema": "https://json.schemastore.org/tsconfig",
-   "display": "Node 14",
-   "compilerOptions": {
-      "lib": [
-         "ES2020"
-      ],
-      "module": "esnext",
-      "target": "ESNext",
-      "strict": false,
-      "esModuleInterop": true,
-      "skipLibCheck": true,
-      "forceConsistentCasingInFileNames": true,
-      "moduleResolution": "node",
-      "outDir": "./lib"
-   },
-   "include": [
-      "./src"
-   ]
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Node 14",
+  "compilerOptions": {
+    "lib": [
+      "ES2020"
+    ],
+    "module": "esnext",
+    "target": "ESNext",
+    "strict": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "outDir": "./lib"
+  },
+  "include": [
+    "./src"
+, "tests"  ]
 }

@@ -5,6 +5,6 @@ export function stripHtml(html: string): string {
     return html.replace(/<[^>]*>?/gm, '');
 }
 
-export function pad(num: number, places: number) {
-  return String(num).padStart(places, "0");
+export function pad(num: number, places: number, padCharacter = "0") {
+  return String(num).padStart(places, padCharacter);
 }
