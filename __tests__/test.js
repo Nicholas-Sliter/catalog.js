@@ -52,7 +52,7 @@ test('Web Scrape', async () => {
 
 test('File scrape', async() => {
   const S = new Scraper('F15', searchParameters);
-  await S.getCatalogFromFile('./test.xml');
+  await S.getCatalogFromFile('./__tests__/test.xml');
 
   const term = S.catalog.term;
 
@@ -72,7 +72,7 @@ test('File scrape', async() => {
   assert.is(courses[0].code, 'AMST0102A-F15');
   assert.is(courses[0].title, 'Politics, Media, Pop. Culture');
 
-  assert.is(courses.length, 886);
+  assert.is(courses.length, 34); //removed many courses for file space
   
   
   
