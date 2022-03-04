@@ -126,6 +126,18 @@ export default class Course {
     }
 
 
+    //switch abbreviation to full name
+    const abbreviationMap = {
+      "Chns" : "China's",
+      "Adv": "Advanced",
+      "Rdg": "Reading",
+    };
+
+    for (const [abbreviation, fullName] of Object.entries(abbreviationMap)) {
+      titleString = titleString.replace(abbreviation, fullName);
+    }
+
+
     return split[0].trim();
 
   }
@@ -136,8 +148,10 @@ private _parseDescription(descriptionString: string){
   descriptionString = stripHtml(descriptionString);
 
   //remove x hrs. lect. from end of description
-  //regex to recognize "3 hrs. lect."
-  const re = /(\d+)\s*hrs\.\s*lect\./;
+  //regex to recognize "3 hrs. lect." or "3 hrs. sem."
+  const re = /\d+ hrs. (lect.|sem.)/;
+  //const re = /(\d+)\s*hrs\.\s*lect\./;
+  
   const split = descriptionString.split(re);
   descriptionString = split[0];
 
@@ -152,6 +166,9 @@ private _parseDescription(descriptionString: string){
 
   //convert â€™ to \x27 (')
   descriptionString = descriptionString.replace(/â€™/g, "\x27");
+
+  //convert â€˜ to \x27 (')
+  descriptionString = descriptionString.replace(/â€˜/g, "\x27");
 
   descriptionString = descriptionString.trim();
 
