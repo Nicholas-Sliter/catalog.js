@@ -19,6 +19,7 @@ type CourseElement = string | null;
 const defaultProperties = {
   href: null,
   code: null,
+  courseNumber: null,
   description: null,
   title: null,
   alternate: null,
@@ -36,6 +37,7 @@ const defaultProperties = {
 export default class Course {
   href: CourseElement;
   code: CourseElement;
+  courseNumber: CourseElement;
   description: CourseElement;
   title: CourseElement;
   alternate: CourseElement;
@@ -67,6 +69,7 @@ export default class Course {
 
     this.href = courseObj?.link[0];
     this.code = courseObj?.title[0];
+    this.courseNumber = this._parseCourseNumber(this.code);
     this.description = this._parseDescription(courseObj?.description[0]);
     this.title = this._parseTitle(courseObj["catalog:title"][0]);
     //this.alternate = courseObj?.alternate[0];
@@ -142,7 +145,23 @@ private _parseDescription(descriptionString: string){
 
 
   return descriptionString;
-  
+
+}
+
+
+private _parseCourseNumber(code: string): string {
+  code = code.trim();
+
+  //remove - Term (eg. -W22 or -S23)
+  const re = /-\w\d+/;
+  const split = code.split(re);
+  code = split[0];
+
+  //remove section identifier (eg. A, B, C, ...) from end
+  code = code.slice(0,-1);
+
+  return code;
+
 }
 
 }
