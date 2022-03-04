@@ -141,9 +141,9 @@ private _parseDescription(descriptionString: string){
   const split = descriptionString.split(re);
   descriptionString = split[0];
 
-  //remove (...) at end of description
+  //remove any (...) at end of description string, but not if it is in the middle of the string.
   //example: ..... (Pass/Fail; Approval required) or (Approval required)
-  const re2 = /\(.*\)$/;
+  const re2 = /\s*\([^\)]+\)\s*$/;
   const split2 = descriptionString.split(re2);
   descriptionString = split2[0];
 
