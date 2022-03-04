@@ -36,7 +36,7 @@ export default class Scraper {
     {term?: string | null,
        searchParameters?: object[] | null,
         filepath?: string | null}) {
-    const { term, searchParameters, filepath } = obj;
+    let { term, searchParameters, filepath } = obj;
 
 
     if (!term && !filepath) {
@@ -44,7 +44,7 @@ export default class Scraper {
     }
 
     if(!searchParameters) {
-      this.searchParameters = DEFAULT_SEARCH_PARAMS;
+      searchParameters = DEFAULT_SEARCH_PARAMS;
     }
 
     if (term) {
