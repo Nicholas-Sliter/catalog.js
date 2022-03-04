@@ -43,7 +43,7 @@ const searchParameters = [
   new Param("location%5B%5D", "resource%2Fplace%2Fcampus%2FM").getObject(),
   new Param("search", "Search").getObject(),
 ];
-const S = new Scraper(term, searchParameters);
+const S = new Scraper({term, searchParameters});
 //await S.getCatalogFromFile("./test/test.xml");
 //console.log(S.catalog);
 await S.scrape();

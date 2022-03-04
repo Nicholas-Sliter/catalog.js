@@ -32,7 +32,13 @@ export default class Scraper {
   public term: string;
   public searchParameters: object[];
 
-  constructor(term?: string, searchParameters?: object[], filepath?: string) {
+  constructor(obj:
+    {term?: string | null,
+       searchParameters?: object[] | null,
+        filepath?: string | null}) {
+    const { term, searchParameters, filepath } = obj;
+
+
     if (!term && !filepath) {
       throw new Error("Term or file must be defined");
     }

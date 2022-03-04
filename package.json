@@ -1,6 +1,6 @@
 {
   "name": "catalog.js",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "description": "A JavaScript / TypeScript  API for the Middlebury course catalog.",
   "main": "./lib/classes/Scraper.js",
   "type": "module",

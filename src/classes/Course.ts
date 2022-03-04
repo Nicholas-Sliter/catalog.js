@@ -141,11 +141,15 @@ private _parseDescription(descriptionString: string){
   const split = descriptionString.split(re);
   descriptionString = split[0];
 
+  //remove (...) at end of description
+  //example: ..... (Pass/Fail; Approval required) or (Approval required)
+  const re2 = /\(.*\)$/;
+  const split2 = descriptionString.split(re2);
+  descriptionString = split2[0];
+  
   descriptionString = descriptionString.trim();
 
-
   return descriptionString;
-
 }
 
 

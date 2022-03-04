@@ -22,18 +22,19 @@ const searchParameters = [
 
 
 test('Web Scrape', async () => {
-  const S = new Scraper('W22', searchParameters);
+  const term = 'W22';
+  const S = new Scraper({term, searchParameters});
   await S.scrape();
   await S.parse();
 
-  const term = S.catalog.term;
+  const t = S.catalog.term;
 
-  assert.is(term.rawID, 'term/202210');
-  assert.is(term.text, 'Winter 2022');
-  assert.is(term.year, '2022');
-  assert.is(term.season, 'W');
+  assert.is(t.rawID, 'term/202210');
+  assert.is(t.text, 'Winter 2022');
+  assert.is(t.year, '2022');
+  assert.is(t.season, 'W');
   assert.is(
-    term.href,
+    t.href,
     'https://catalog.middlebury.edu/terms/view/catalog/catalog%2FMCUG/term/term%2F202210'
   );
 
@@ -51,17 +52,18 @@ test('Web Scrape', async () => {
 
 
 test('File scrape', async() => {
-  const S = new Scraper('F15', searchParameters);
+  const term = 'F15';
+  const S = new Scraper({term, searchParameters});
   await S.getCatalogFromFile('./__tests__/test.xml');
 
-  const term = S.catalog.term;
+  const t = S.catalog.term;
 
-  assert.is(term.rawID, 'term/201590');
-  assert.is(term.text, 'Fall 2015');
-  assert.is(term.year, '2015');
-  assert.is(term.season, 'F');
+  assert.is(t.rawID, 'term/201590');
+  assert.is(t.text, 'Fall 2015');
+  assert.is(t.year, '2015');
+  assert.is(t.season, 'F');
   assert.is(
-    term.href,
+    t.href,
     'http://catalog.middlebury.edu/terms/view/catalog/catalog%2FMCUG/term/term%2F201590'
   );
 
