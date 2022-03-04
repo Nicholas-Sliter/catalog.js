@@ -67,8 +67,7 @@ export default class Course {
 
     this.href = courseObj?.link[0];
     this.code = courseObj?.title[0];
-    this.description = stripHtml(courseObj?.description[0]); //todo: do this in the class
-    //this.title = stripHtml(courseObj["catalog:title"][0]);
+    this.description = this._parseDescription(courseObj?.description[0]);
     this.title = this._parseTitle(courseObj["catalog:title"][0]);
     //this.alternate = courseObj?.alternate[0];
     this.type = new Type(courseObj?.["catalog:genustype"]?.[0]);
@@ -127,5 +126,23 @@ export default class Course {
     return split[0].trim();
 
   }
+
+
+private _parseDescription(descriptionString: string){
+  //remove and strip HTML
+  descriptionString = stripHtml(descriptionString);
+
+  //remove x hrs. lect. from end of description
+  //regex to recognize "3 hrs. lect."
+  const re = /(\d+)\s*hrs\.\s*lect\./;
+  const split = descriptionString.split(re);
+  descriptionString = split[0];
+
+  descriptionString = descriptionString.trim();
+
+
+  return descriptionString;
+  
+}
 
 }
