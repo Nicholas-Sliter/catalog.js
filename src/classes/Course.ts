@@ -13,6 +13,7 @@ import Type from "./Type.js";
 import Level from "./Level.js";
 import Alias from "./Alias.js";
 
+const DEPARTMENT_PREFIX_CHAR = "_";
 
 type CourseElement = string | null;
 //can only contain primitive types
@@ -186,6 +187,10 @@ private _parseCourseNumber(code: string): string {
 
   //remove section identifier (eg. A, B, C, ...) from end
   code = code.slice(0,-1);
+
+  //if the dept section is not 4 characters long, prefix it with the prefix character
+  code = code.padStart(8, DEPARTMENT_PREFIX_CHAR);
+
 
   return code;
 
