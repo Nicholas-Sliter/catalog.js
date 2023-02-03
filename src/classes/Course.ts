@@ -12,6 +12,7 @@ import Term from "./Term.js";
 import Type from "./Type.js";
 import Level from "./Level.js";
 import Alias from "./Alias.js";
+import AliasFactory from "./AliasFactory.js";
 
 const DEPARTMENT_PREFIX_CHAR = "_";
 
@@ -41,7 +42,7 @@ export default class Course {
   courseNumber: CourseElement;
   description: CourseElement;
   title: CourseElement;
-  alternate: CourseElement;
+  alternate: { _: string; $: { href: string; }; }[];
   type: Type | null;
   department: Department | null;
   requirements: Requirement[];
@@ -53,12 +54,13 @@ export default class Course {
   term: Term | null;
   subject: Subject | null;
   level: Level | null;
-  alias: Alias | null;
+  alias: Alias[];
 
   constructor(options: object) {
     Object.assign(this, defaultProperties);
     this.requirements = []; //to prevent all instances of this class from having the same requirements array
     this.instructors = [];
+    this.alias = [];
     //Object.assign(this, options);
     this._parseCourse(options);
   }
@@ -70,10 +72,17 @@ export default class Course {
 
     this.href = courseObj?.link[0];
     this.code = courseObj?.title[0];
+    this.alternate = courseObj?.["catalog:alternate"];
     this.courseNumber = this._parseCourseNumber(this.code);
     this.description = this._parseDescription(courseObj?.description[0]);
     this.title = this._parseTitle(courseObj["catalog:title"][0]);
-    //this.alternate = courseObj?.alternate[0];
+
+    const aliases = new AliasFactory(
+      courseObj["catalog:title"][0],
+      courseObj?.["catalog:alternate"],
+      this.courseNumber)
+
+    this.alias = aliases.getAliases();
     this.type = new Type(courseObj?.["catalog:genustype"]?.[0]);
     this.location = new Location(courseObj?.["catalog:location"]?.[0]);
     this.schedule = new Schedule(courseObj?.["catalog:schedule"]?.[0]);
@@ -82,12 +91,12 @@ export default class Course {
     const termObj = courseObj?.["catalog:term"]?.[0];
     this.term = new Term(termObj);
 
-  
+
     const instructors = courseObj?.["catalog:instructor"];
     if (instructors && instructors?.length > 0) {
-    instructors.forEach((instructor: any) => {
-      this.instructors.push(new Instructor(instructor));
-    });
+      instructors.forEach((instructor: any) => {
+        this.instructors.push(new Instructor(instructor));
+      });
 
     }
 
@@ -110,6 +119,7 @@ export default class Course {
     });
   }
 
+
   private _parseTitle(titleString: string): string {
     //remove and strip HTML
     titleString = stripHtml(titleString);
@@ -118,18 +128,17 @@ export default class Course {
     // and remove "Please Register" string from title  TODO:
     //and add alias to the other course
     //regex for "Please Register" and "Please register"
-    const reg = /(Please Register|Please register)/;
+    const reg = /(Please Register|Please register|please register)/;
     const split = titleString.split(reg);
 
-    if (split.length > 2){
-      const alias = new Alias(split[2]);
-      this.alias = alias;
-    }
+    // if (split.length > 2) {
+    //   const alias = new Alias(split[2]);
+    //   this.alias = alias;
+    // }
 
 
     //switch abbreviation to full name
     const abbreviationMap = {
-      "Chns" : "China's",
       "Adv": "Advanced",
       "Rdg": "Reading",
     };
@@ -144,56 +153,56 @@ export default class Course {
   }
 
 
-private _parseDescription(descriptionString: string){
-  //remove and strip HTML
-  descriptionString = stripHtml(descriptionString);
+  private _parseDescription(descriptionString: string) {
+    //remove and strip HTML
+    descriptionString = stripHtml(descriptionString);
 
-  //remove x hrs. lect. from end of description
-  //regex to recognize "3 hrs. lect." or "3 hrs. sem."
-  const re = /\d+ hrs. (lect.|sem.)/;
-  //const re = /(\d+)\s*hrs\.\s*lect\./;
-  
-  const split = descriptionString.split(re);
-  descriptionString = split[0];
+    //remove x hrs. lect. from end of description
+    //regex to recognize "3 hrs. lect." or "3 hrs. sem."
+    const re = /\d+ hrs. (lect.|sem.)/;
+    //const re = /(\d+)\s*hrs\.\s*lect\./;
 
-  //remove any (...) at end of description string, but not if it is in the middle of the string.
-  //example: ..... (Pass/Fail; Approval required) or (Approval required)
-  const re2 = /\s*\([^\)]+\)\s*$/;
-  const split2 = descriptionString.split(re2);
-  descriptionString = split2[0];
+    const split = descriptionString.split(re);
+    descriptionString = split[0];
 
-  //convert &amp to &
-  descriptionString = descriptionString.replace(/&amp;/g, "&");
+    //remove any (...) at end of description string, but not if it is in the middle of the string.
+    //example: ..... (Pass/Fail; Approval required) or (Approval required)
+    const re2 = /\s*\([^\)]+\)\s*$/;
+    const split2 = descriptionString.split(re2);
+    descriptionString = split2[0];
 
-  //convert â€™ to \x27 (')
-  descriptionString = descriptionString.replace(/â€™/g, "\x27");
+    //convert &amp to &
+    descriptionString = descriptionString.replace(/&amp;/g, "&");
 
-  //convert â€˜ to \x27 (')
-  descriptionString = descriptionString.replace(/â€˜/g, "\x27");
+    //convert â€™ to \x27 (')
+    descriptionString = descriptionString.replace(/â€™/g, "\x27");
 
-  descriptionString = descriptionString.trim();
+    //convert â€˜ to \x27 (')
+    descriptionString = descriptionString.replace(/â€˜/g, "\x27");
 
-  return descriptionString;
-}
+    descriptionString = descriptionString.trim();
 
-
-private _parseCourseNumber(code: string): string {
-  code = code.trim();
-
-  //remove - Term (eg. -W22 or -S23)
-  const re = /-\w\d+/;
-  const split = code.split(re);
-  code = split[0];
-
-  //remove section identifier (eg. A, B, C, ...) from end
-  code = code.slice(0,-1);
-
-  //if the dept section is not 4 characters long, prefix it with the prefix character
-  code = code.padStart(8, DEPARTMENT_PREFIX_CHAR);
+    return descriptionString;
+  }
 
 
-  return code;
+  private _parseCourseNumber(code: string): string {
+    code = code.trim();
 
-}
+    //remove - Term (eg. -W22 or -S23)
+    const re = /-\w\d+/;
+    const split = code.split(re);
+    code = split[0];
+
+    //remove section identifier (eg. A, B, C, ...) from end
+    code = code.slice(0, -1);
+
+    //if the dept section is not 4 characters long, prefix it with the prefix character
+    code = code.padStart(8, DEPARTMENT_PREFIX_CHAR);
+
+
+    return code;
+
+  }
 
 }

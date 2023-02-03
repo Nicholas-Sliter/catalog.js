@@ -23,7 +23,7 @@ const searchParameters = [
 
 test('Web Scrape', async () => {
   const term = 'W22';
-  const S = new Scraper({term, searchParameters});
+  const S = new Scraper({ term, searchParameters });
   await S.scrape();
   await S.parse();
 
@@ -47,13 +47,13 @@ test('Web Scrape', async () => {
   assert.is(courses.length, 181);
 
 
-  
+
 });
 
 
-test('File scrape', async() => {
+test('File scrape', async () => {
   const term = 'F15';
-  const S = new Scraper({term, searchParameters});
+  const S = new Scraper({ term, searchParameters });
   await S.getCatalogFromFile('./__tests__/test.xml');
 
   const t = S.catalog.term;
@@ -67,7 +67,7 @@ test('File scrape', async() => {
     'http://catalog.middlebury.edu/terms/view/catalog/catalog%2FMCUG/term/term%2F201590'
   );
 
-  
+
 
   const courses = S.catalog.courses;
 
@@ -75,9 +75,9 @@ test('File scrape', async() => {
   assert.is(courses[0].title, 'Politics, Media, Pop. Culture');
 
   assert.is(courses.length, 34); //removed many courses for file space
-  
-  
-  
+
+
+
 });
 
 

@@ -6,3 +6,6 @@
 
 # node
 node_modules
+
+#tsc compiled
+lib/*/**
