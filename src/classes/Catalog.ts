@@ -1,11 +1,11 @@
-import Term from './Term.js'; 
+import Term from './Term.js';
 import Course from './Course.js';
 
 type CatalogElement = string | null;
 const defaultProperties = {
-   raw: null,
-   href: null,
-   term: null,
+  raw: null,
+  href: null,
+  term: null,
 };
 
 
