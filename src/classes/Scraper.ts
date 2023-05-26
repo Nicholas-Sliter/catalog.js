@@ -33,9 +33,11 @@ export default class Scraper {
   public searchParameters: object[];
 
   constructor(obj:
-    {term?: string | null,
-       searchParameters?: object[] | null,
-        filepath?: string | null}) {
+    {
+      term?: string | null,
+      searchParameters?: object[] | null,
+      filepath?: string | null
+    }) {
     let { term, searchParameters, filepath } = obj;
 
 
@@ -43,7 +45,7 @@ export default class Scraper {
       throw new Error("Term or file must be defined");
     }
 
-    if(!searchParameters) {
+    if (!searchParameters) {
       searchParameters = DEFAULT_SEARCH_PARAMS;
     }
 
@@ -130,7 +132,16 @@ export default class Scraper {
   }
 
   public async scrape(): Promise<Scraper> {
-    const response = await fetch(this.href);
+    const response = await fetch(this.href, {
+      headers: {
+        "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36',
+        "Accept": 'text/html,application/xhtml+xml,application/xml;',
+        "Accept-Encoding": 'gzip, deflate, br',
+        "Cache-Control": "max-age=0",
+        "Connection": "keep-alive",
+        "Host": "catalog.middlebury.edu"
+      }
+    });
 
     if (!response.ok) {
       throw new Error(`Could not fetch ${this.href}`);
