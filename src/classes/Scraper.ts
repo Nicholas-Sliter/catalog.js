@@ -4,20 +4,20 @@ import Catalog from "./Catalog.js";
 import Param from "./Param.js";
 import fs from "fs";
 
-const MIDD_URL_BASE =
-  "http://catalog.middlebury.edu/offerings/searchxml/catalog/catalog%2FMCUG?";
-
+const MIDD_URL_BASE = 'https://catalog.middlebury.edu/offerings/searchxml/catalog-MCUG?';
 const DEFAULT_SEARCH_PARAMS = [
-  new Param("type%5B%5D", "genera%3Aoffering%2FLCT").getObject(),
-  new Param("type%5B%5D", "genera%3Aoffering%2FLAB").getObject(),
-  new Param("type%5B%5D", "genera%3Aoffering%2FDSC").getObject(),
-  new Param("type%5B%5D", "genera%3Aoffering%2FDR1").getObject(),
-  new Param("type%5B%5D", "genera%3Aoffering%2FDR2").getObject(),
-  new Param("type%5B%5D", "genera%3Aoffering%2FPE").getObject(),
-  new Param("type%5B%5D", "genera%3Aoffering%2FPLB").getObject(),
-  new Param("type%5B%5D", "genera%3Aoffering%2FSCR").getObject(),
-  new Param("type%5B%5D", "genera%3Aoffering%2FSEM").getObject(),
-  new Param("location%5B%5D", "resource%2Fplace%2Fcampus%2FM").getObject(),
+  new Param("type%5B%5D", "genera%3Aoffering-LCT").getObject(),
+  new Param("type%5B%5D", "genera%3Aoffering-LAB").getObject(),
+  new Param("type%5B%5D", "genera%3Aoffering-DSC").getObject(),
+  new Param("type%5B%5D", "genera%3Aoffering-DR1").getObject(),
+  new Param("type%5B%5D", "genera%3Aoffering-IND").getObject(),
+  new Param("type%5B%5D", "genera%3Aoffering-PE").getObject(),
+  new Param("type%5B%5D", "genera%3Aoffering-SCR").getObject(),
+  new Param("type%5B%5D", "genera%3Aoffering-SEM").getObject(),
+  new Param("type%5B%5D", "genera%3Aoffering-SNR").getObject(),
+  new Param("days_mode", "inclusive").getObject(),
+  new Param("time_start", "0").getObject(),
+  new Param("time_end", "86400").getObject(),
   new Param("search", "Search").getObject(),
 ];
 
