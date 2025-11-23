@@ -1,11 +1,10 @@
 import xml2js from "xml2js";
-import fetch from "node-fetch";
 import Catalog from "./Catalog.js";
 import Param from "./Param.js";
 import fs from "fs";
 
 const MIDD_URL_BASE =
-  "http://catalog.middlebury.edu/offerings/searchxml/catalog/catalog%2FMCUG?";
+  "http://catalog.middlebury.edu/offerings/searchxml/catalog-MCUG?";
 
 const DEFAULT_SEARCH_PARAMS = [
   new Param("type%5B%5D", "genera%3Aoffering%2FLCT").getObject(),
@@ -132,7 +131,7 @@ export default class Scraper {
   }
 
   public async scrape(): Promise<Scraper> {
-    const response = await fetch(this.href, {
+    const response = await global.fetch(this.href, {
       headers: {
         "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36',
         "Accept": 'text/html,application/xhtml+xml,application/xml;',
@@ -170,7 +169,7 @@ export default class Scraper {
     let url = `${MIDD_URL_BASE}`;
 
     if (this.term) {
-      url += `term=term%2F${this.term}`;
+      url += `term=term-${this.term}`;
     }
 
     if (!this.searchParameters) {

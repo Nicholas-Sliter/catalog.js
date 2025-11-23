@@ -7,10 +7,10 @@
 
 type CourseInfoElement = string | null;
 const defaultProperties = {
-   rawID: null,
-   href: null,
-   text: null,
-   id: null
+  rawID: null,
+  href: null,
+  text: null,
+  id: null
 };
 
 
@@ -21,15 +21,15 @@ export default class CourseInfo {
   text: CourseInfoElement;
   id: CourseInfoElement;
 
-  constructor(options: object, parse:boolean=true) {
-      Object.assign(this, defaultProperties);
-      if (parse) {
-        this._parseOptions(options);
-        this.id = this._parseID();
-      }
-      else {
-        Object.assign(this, options);
-      }
+  constructor(options: object, parse: boolean = true) {
+    Object.assign(this, defaultProperties);
+    if (parse) {
+      this._parseOptions(options);
+      this.id = this._parseID();
+    }
+    else {
+      Object.assign(this, options);
+    }
   }
 
   private _parseOptions(options: object) {
@@ -46,10 +46,10 @@ export default class CourseInfo {
       return null;
     }
 
-    if (this.rawID.indexOf("/") > -1) {
-      const splits = this.rawID.split("/");
+    if (this.rawID.indexOf("-") > -1) {
+      const splits = this.rawID.split("-");
       id = splits[splits.length - 1];
-    } 
+    }
     else {
       //throw new Error("Course " + this.rawID + " has no ID.");
       return null;

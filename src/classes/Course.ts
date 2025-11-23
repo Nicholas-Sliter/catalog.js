@@ -103,7 +103,7 @@ export default class Course {
 
     const topics = courseObj["catalog:topic"];
     topics.forEach((topic: any) => {
-      const types: string[] = topic.$.type.split("/");
+      const types: string[] = topic.$.type.split("-");
       const topicType: string = types[types.length - 1];
 
       if (topicType === "subject") {

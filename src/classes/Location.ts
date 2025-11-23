@@ -15,21 +15,40 @@ export default class Location extends CourseInfo {
   room: LocationElement;
   building: LocationElement;
 
-  constructor(options: object, parse:boolean=true) {
+  constructor(options: object, parse: boolean = true) {
     super(options, parse);
     Object.assign(this, defaultProperties);
 
-    this.room = this._parseRoom();
-    this.building = this._parseBuilding();
-    this.id = this._parseLocationID();
+    if (options.hasOwnProperty('_')) {
+      // parse ID of format: resource-place-room-MBH-104
+      const id = options?.['$']?.['id']
+      if (!id) {
+        throw new Error('Missing new location object format')
+      }
+
+      if (!id.includes('resource-place-room')) {
+        throw new Error('ID format does not match resource-place-room-XXX')
+      }
+
+      this.room = id.split('resource-place-room-')[1].split('-')[1];
+      this.building = id.split('resource-place-room-')[1].split('-')[0];
+      this.id = [this.building, this.room].join("/");
+
+    }
+    else {
+      this.room = this._parseRoom();
+      this.building = this._parseBuilding();
+      this.id = this._parseLocationID();
+    }
+
   }
 
   private _parseRoom(): string {
     let room: string = "";
 
     if (!this.rawID) {
-       new Error("rawID is null");
-       return null;
+      new Error("rawID is null");
+      return null;
     }
 
     if (this.rawID.indexOf("/") > -1) {
