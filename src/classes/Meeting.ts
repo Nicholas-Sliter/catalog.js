@@ -38,7 +38,7 @@ export default class Meeting {
   private async _parseMeeting(meetingObj: any) {
     const regex = /(.+)-(.+) on (.+?) (at (.+) (.+) )?\((.+) to (.+)\)/;
     const timeFormat = "h:mma";
-    const dateFormat = "MMM DD, YYYY";
+    const dateFormat = "MMM D, YYYY";
 
     const matches = meetingObj.text.match(regex);
     if (matches) {
