@@ -4,7 +4,7 @@ import Param from "./Param.js";
 import fs from "fs";
 
 const MIDD_URL_BASE =
-  "http://catalog.middlebury.edu/offerings/searchxml/catalog-MCUG?";
+  "https://catalog.middlebury.edu/offerings/searchxml/catalog-MCUG?";
 
 const DEFAULT_SEARCH_PARAMS = [
   new Param("type%5B%5D", "genera%3Aoffering%2FLCT").getObject(),
